@@ -2,7 +2,7 @@
 // Acts as a slave to the accompanying LabVIEW code.
 // Author: Graham Greig, ggreig@sfu.ca
 
-// Code for T,RH and luminosity measurment. Output is to the serial monitor and 
+// Code for T,RH and luminosity measurment. Output is to the Serial monitor and 
 // LabVIEW. Device is to be placed inside of probe station so OLED display has
 // been removed.
 
@@ -46,8 +46,8 @@ void setup()
   sht.init();
 
   //Set the pin modes to output.
-  pinMode(0,OUTPUT);
-  pinMode(1,OUTPUT);
+  pinMode(22,OUTPUT);
+  pinMode(24,OUTPUT);
   pinMode(2,OUTPUT);
   pinMode(3,OUTPUT);
   pinMode(4,OUTPUT);
@@ -94,7 +94,7 @@ void loop(){
   unsigned long curMillis = millis();       // Get current time
   
   if (curMillis - trhMillis >= TRHSTEP){   // Time for new measurements?
-    // Get the T/RH measurement and print to the serial monitor.
+    // Get the T/RH measurement and print to the Serial monitor.
     if (sht.readSample()) {
   //      Serial.print("  RH:  ");
   //      Serial.print(" %");
@@ -161,9 +161,9 @@ void loop(){
       Serial.print(humidity);
       Serial.print("\n");
     }
-    else if (inByte == 'd'){ //Close the HV switches based on the input command sequence. Note, the Arduino serial buffer is only 64 bytes so will need to send in multiple parts.
+    else if (inByte == 'd'){ //Close the HV switches based on the input command sequence. Note, the Arduino Serial buffer is only 64 bytes so will need to send in multiple parts.
 
-      // Readout the serial buffer stream (max of 8 commands).
+      // Readout the Serial buffer stream (max of 8 commands).
       Pins = Serial.readStringUntil(';'); 
       // Serial.println(Pins);
     
@@ -191,8 +191,9 @@ void loop(){
       }
      }
      else if (inByte == 'e'){ // Code to open all relays.
-       digitalWrite(0,LOW);
-       digitalWrite(1,LOW);
+       digitalWrite(22,LOW);
+       digitalWrite(24,LOW);
+       digitalWrite(2,LOW);
        digitalWrite(3,LOW);
        digitalWrite(4,LOW);
        digitalWrite(5,LOW);
@@ -224,9 +225,9 @@ void loop(){
        digitalWrite(51,LOW);
        digitalWrite(53,LOW);
      }
-         else if (inByte == 'f'){ //Open the HV switches based on the input command sequence. Note, the Arduino serial buffer is only 64 bytes so will need to send in multiple parts.
+         else if (inByte == 'f'){ //Open the HV switches based on the input command sequence. Note, the Arduino Serial buffer is only 64 bytes so will need to send in multiple parts.
 
-      // Readout the serial buffer stream (max of 8 commands).
+      // Readout the Serial buffer stream (max of 8 commands).
       Pins = Serial.readStringUntil(';'); 
       // Serial.println(Pins);
     
