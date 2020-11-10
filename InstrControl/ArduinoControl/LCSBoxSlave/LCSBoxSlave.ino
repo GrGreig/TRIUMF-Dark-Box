@@ -149,7 +149,7 @@ void loop(){
     }
 
     else if (inByte == 'b'){
-      //Serial.print(interlock); (Need to get Lux sensor to SFU)
+      //Serial.print(interlock); (This will not be used at TRIUMF)
       Serial.print(0);
       Serial.print("\n");
       Serial.flush();
@@ -176,19 +176,20 @@ void loop(){
            
            nextPin = Pins.substring(0,index);  // Get the substring
            Pins.remove(0,index+1);
-           Serial.print(nextPin);
-           Serial.print(" ");
+//           Serial.print(nextPin);
+//           Serial.print(" ");
            delay(500);
            
-           bool ans = digitalRead(nextPin.toInt());  //set the pin output status
-           Serial.print("Before ");
-           Serial.print(ans);
+//           bool ans = digitalRead(nextPin.toInt());  //set the pin output status
+//           Serial.print("Before ");
+//           Serial.print(ans);
            digitalWrite(nextPin.toInt(), HIGH);
-           ans = digitalRead(nextPin.toInt());
-           Serial.print("After ");
-           Serial.print(ans);
-           Serial.print("\n");
+//           ans = digitalRead(nextPin.toInt());
+//           Serial.print("After ");
+//           Serial.print(ans);
       }
+      Serial.print("Done");
+      Serial.print("\n");
      }
      else if (inByte == 'e'){ // Code to open all relays.
        digitalWrite(22,LOW);
@@ -224,6 +225,8 @@ void loop(){
        digitalWrite(49,LOW);
        digitalWrite(51,LOW);
        digitalWrite(53,LOW);
+       Serial.print("Done");
+       Serial.print("\n");
      }
          else if (inByte == 'f'){ //Open the HV switches based on the input command sequence. Note, the Arduino Serial buffer is only 64 bytes so will need to send in multiple parts.
 
@@ -240,19 +243,20 @@ void loop(){
            
            nextPin = Pins.substring(0,index);  // Get the substring
            Pins.remove(0,index+1);
-           Serial.print(nextPin);
-           Serial.print(" ");
+//           Serial.print(nextPin);
+//           Serial.print(" ");
            delay(500);
            
-           bool ans = digitalRead(nextPin.toInt());  //set the pin output status
-           Serial.print("Before ");
-           Serial.print(ans);
+//           bool ans = digitalRead(nextPin.toInt());  //set the pin output status
+//           Serial.print("Before ");
+//           Serial.print(ans);
            digitalWrite(nextPin.toInt(), LOW);
-           ans = digitalRead(nextPin.toInt());
-           Serial.print("After ");
-           Serial.print(ans);
-           Serial.print("\n");
+//           ans = digitalRead(nextPin.toInt());
+//           Serial.print("After ");
+//           Serial.print(ans);
       }
+      Serial.print("Done");
+      Serial.print("\n");
     }
   }
     Serial.flush();
